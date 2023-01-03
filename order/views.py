@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from rest_framework.generics import ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, CreateAPIView
 # Create your views here.
 
-class OrderViewSet(viewsets.ModelViewSet):
+class OrderViewSet(ListAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
