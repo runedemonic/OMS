@@ -6,6 +6,10 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 class UserManager(BaseUserManager):
     def create_user(self, nickname, company, name, password):
+        if not nickname:
+            raise ValueError('must have user nickname')
+        if not name:
+            raise ValueError('must have user name')
         user = self.model(
             nickname=nickname,
             name=name,
@@ -27,15 +31,17 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     id = models.AutoField(primary_key=True)
-    company = models.CharField(default='', max_length=100)
-    name = models.CharField(default='', max_length=100)
+    nickname = models.CharField(default='',max_length=100, blank=False)
+    company = models.CharField(default='', max_length=100, blank=False)
+    name = models.CharField(default='', max_length=100, blank=False)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'name'
+    USERNAME_FIELD = 'nickname'
+    REQUIRED_FIELDS = ['name']
 
     def __str__(self):
-        return self.name
+        return self.nickname
