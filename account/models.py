@@ -31,7 +31,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     id = models.AutoField(primary_key=True)
-    nickname = models.CharField(default='',max_length=100, blank=False)
+    nickname = models.CharField(default='',max_length=100, blank=False, unique=True)
     company = models.CharField(default='', max_length=100, blank=False)
     name = models.CharField(default='', max_length=100, blank=False)
 
