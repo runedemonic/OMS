@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404
+from django.template.context_processors import request
 from rest_framework import viewsets, generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import *
 from .models import *
 from django.http import HttpResponse,Http404
-from rest_framework.generics import ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, CreateAPIView
 # Create your views here.
 
 class OrderList(APIView):
@@ -49,5 +49,8 @@ class OrderDetail(APIView):
         order = self.get_object(pk)
         order.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
 
 
